@@ -1,0 +1,23 @@
+{
+  "name": "racarvajal-cloudFoundry",
+  "version": "1.0.0",
+  "description": "Azure devops extension",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshueis/racarvajal-cloudFoundry.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshueis/racarvajal-cloudFoundry/issues"
+  },
+  "homepage": "https://github.com/joshueis/racarvajal-cloudFoundry#readme",
+  "dependencies": {
+    "vss-web-extension-sdk": "^5.141.0"
+  }
+}
