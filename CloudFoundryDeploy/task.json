@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
-  "id": "",
+  "id": "c2aa46b7-8a3e-4d8c-b83c-e8ec6a467356",
   "name": "CloudFoundryPushRoll",
   "friendlyName": "Cloud Foundry Deploy",
   "description": "Push your apps to Cloud Foundry with zero downtime using their rolling feature. See: https://docs.cloudfoundry.org/devguide/deploy-apps/rolling-deploy.html#deployment-process",

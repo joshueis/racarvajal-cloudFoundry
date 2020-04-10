@@ -258,7 +258,7 @@ function bindServicesToApp() {
         })
         .fail(function (err) {
           tl.error(err);
-          tl.setResult(tl.TaskResult.Failed, tl.loc("BindServicesFailed"));
+          tl.setResult(tl.TaskResult.Failed, "Failed to bind services to app.");
           return Q.reject(err);
         });
     } else {
@@ -272,9 +272,12 @@ function bindServicesToApp() {
 
 if (!cfPath) {
   //tool location for cf CLI was not specified, show error if cf CLI is not in the PATH
-  tl.setResult(tl.TaskResult.Failed, tl.loc("CLINotFound"));
+  tl.setResult(
+    tl.TaskResult.Failed,
+    "cf CLI is not found in the path. Install the cf CLI: https://github.com/cloudfoundry/cli."
+  );
 } else if (!fs.existsSync(cfPath)) {
-  tl.setResult(tl.TaskResult.Failed, tl.loc("CLINotFoundInPath", cfPath));
+  tl.setResult(tl.TaskResult.Failed, `cf CLI not found at: ${cfPath}`);
 } else {
   //The main task logic to push an app to Cloud Foundry
   loginToCF()
@@ -291,26 +294,29 @@ if (!cfPath) {
                   tl.debug("Successfully pushed app, now bind to existing services if applicable.");
                   bindServicesToApp().fail(function (err) {
                     tl.error(err);
-                    tl.setResult(tl.TaskResult.Failed, tl.loc("BindServicesFailed"));
+                    tl.setResult(tl.TaskResult.Failed, "Failed to bind services to app.");
                   });
                 })
                 .fail(function (err) {
                   tl.error(err);
-                  tl.setResult(tl.TaskResult.Failed, tl.loc("PushFailed"));
+                  tl.setResult(tl.TaskResult.Failed, "Failed to push app to Cloud Foundry.");
                 });
             })
             .fail(function (err) {
               tl.error(err);
-              tl.setResult(tl.TaskResult.Failed, tl.loc("UpdateServiceFailed"));
+              tl.setResult(tl.TaskResult.Failed, "Failed to update services in Cloud Foundry.");
             });
         })
         .fail(function (err) {
           tl.error(err);
-          tl.setResult(tl.TaskResult.Failed, tl.loc("CreateServiceFailed"));
+          tl.setResult(tl.TaskResult.Failed, "Failed to create services in Cloud Foundry.");
         });
     })
     .fail(function (err) {
       tl.error(err);
-      tl.setResult(tl.TaskResult.Failed, tl.loc("EndPointCredentials"));
+      tl.setResult(
+        tl.TaskResult.Failed,
+        "Failed to login to the Cloud Foundry endpoint. Verify the URL and credentials."
+      );
     });
 }
