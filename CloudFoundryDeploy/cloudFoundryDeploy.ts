@@ -5,6 +5,7 @@ import Q = require("q");
 import { IExecOptions } from "azure-pipelines-task-lib/toolrunner";
 
 tl.setResourcePath(path.join(__dirname, "task.json"));
+console.log("Setting resource path to...", path.join(__dirname, "task.json"));
 
 //Get user input
 const cfEndpoint = tl.getInput("cfEndpoint", true);
@@ -20,14 +21,6 @@ if (tl.filePathSupplied("cfToolLocation")) {
   cfPath = tl.getPathInput("cfToolLocation");
 }
 
-console.log(path.join(__dirname, "task.json"));
-async function run() {
-  try {
-  } catch (err) {
-    tl.setResult(tl.TaskResult.Failed, err.message);
-  }
-}
-
 function getOptions() {
   const CFHOMEKEY = "CF_HOME";
   var options = <IExecOptions>{};
@@ -37,6 +30,9 @@ function getOptions() {
     const tempDir = tl.getVariable("Agent.TempDirectory");
     // overriding config dir so that different agents on the same host can run. https://docs.cloudfoundry.org/cf-cli/cf-help.html
     options.env["CF_HOME"] = path.join(tempDir, "cfCLI");
+    console.info(
+      "overriding config dir so that different agents on the same host can run. https://docs.cloudfoundry.org/cf-cli/cf-help.html"
+    );
   }
 
   return options;
@@ -72,7 +68,6 @@ function loginToCF() {
     return cfLogin.exec(getOptions());
   });
 }
-// run();
 
 //create a service using cf CLI create-user-provided-service
 function createService(createServiceArgs: string) {
