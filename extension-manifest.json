@@ -2,11 +2,14 @@
   "manifestVersion": 1,
   "id": "cloud-foundry-extension",
   "publisher": "IsraelCarvajal",
-  "version": "1.0.0",
-  "name": "Cloud foundry extension",
+  "version": "1.0.201",
+  "name": "Cloud Foundry extension to push with rolling strategy",
   "description": "Deploy your app to Cloud Foundry with zero downtime using cf cli 7",
   "public": false,
-  "categories": ["Azure Repos"],
+  "categories": ["Azure Pipelines"],
+  "icons": {
+    "default": "images/extension-icon.png"
+  },
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
@@ -14,24 +17,28 @@
   ],
   "contributions": [
     {
-      "id": "my-hub",
-      "type": "ms.vss-web.hub",
-      "targets": ["ms.vss-code-web.code-hub-group"],
+      "id": "cloud-foundry-deploy-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
       "properties": {
-        "name": "My Hub",
-        "uri": "my-hub.html"
+        "name": "CloudFoundryDeploy"
+      }
+    },
+    {
+      "id": "cloud-foundry-uups-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
+      "properties": {
+        "name": "CloudFoundryUUPS"
       }
     }
   ],
   "files": [
     {
-      "path": "my-hub.html",
-      "addressable": true
+      "path": "CloudFoundryDeploy"
     },
     {
-      "path": "node_modules/vss-web-extension-sdk/lib",
-      "addressable": true,
-      "packagePath": "lib"
+      "path": "CloudFoundryUUPS"
     }
   ]
 }
